@@ -1,0 +1,48 @@
+.title {
+    color: #007EE5;
+}
+
+.test-item {
+    background-color: #ffffff;
+    box-shadow: rgba(235, 232, 232, 0.498039) 0px 1px 4px 0px;
+    padding: 16px;
+    flex: 1;
+    &:first-child {
+        margin-right: 40px;
+    }
+}
+
+
+.test-group {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 30px;
+}
+
+.test-name {
+    color: #007EE5;
+    font-size: 16px;
+}
+
+.test-info {
+    display: flex;
+    align-items: flex-end;
+    margin-top: 20px;
+}
+.test-time {
+    color: #2ECC71;
+    margin-right: 20px;
+}
+
+.test-count {
+    color: #EB5C55;
+    margin-right: 20px;
+}
+
+.test-questions {
+    color: #F6A623;
+}
+
+.test-item {
+    cursor: pointer;
+}

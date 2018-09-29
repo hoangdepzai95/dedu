@@ -1,0 +1,16 @@
+<div>
+    <h2 class="title"><i class="anticon anticon-profile"></i> Danh sách đề thi</h2>
+</div>
+<nz-divider></nz-divider>
+<div class="test-list">
+    <div nz-row *ngFor="let group of TEST_LIST" class="test-group">
+        <div class="test-item" *ngFor="let test of group" (click)="goToTest()">
+            <h4 class="test-name">{{ test.name }}</h4>
+            <div class="test-info">
+                <span class="test-time"><i class="anticon anticon-clock-circle-o"></i>&nbsp; {{ test.duration }} phút</span>
+                <span class="test-count"><i class="anticon anticon-area-chart"></i>&nbsp; {{ test.testedCount }} lượt thi</span>
+                <span class="test-questions"><i class="anticon anticon-question-circle-o"></i>&nbsp; {{ test.questionsNumber }} câu</span>
+            </div>
+        </div>
+    </div>
+</div>

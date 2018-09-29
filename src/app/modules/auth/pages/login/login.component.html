@@ -1,0 +1,39 @@
+<div class="login-form">
+    <div>
+        <div class="logo">
+            <a routerLink="/test-list">
+                <img src="/assets/images/logo.png"/>
+                <p>KIDS CAMP</p>
+            </a>
+        </div>
+        <form nz-form [formGroup]="validateForm"(ngSubmit)="submitForm()">
+            <nz-form-item>
+                <nz-form-control>
+                    <nz-input-group nzPrefixIcon="anticon anticon-user">
+                        <input type="text" nz-input formControlName="userName" placeholder="Username">
+                    </nz-input-group>
+                    <nz-form-explain *ngIf="validateForm.get('userName').dirty && validateForm.get('userName').errors">Vui lòng nhập tên đăng nhập!</nz-form-explain>
+                </nz-form-control>
+            </nz-form-item>
+            <nz-form-item>
+                <nz-form-control>
+                    <nz-input-group nzPrefixIcon="anticon anticon-lock">
+                        <input type="password" nz-input formControlName="password" placeholder="Password">
+                    </nz-input-group>
+                    <nz-form-explain *ngIf="validateForm.get('password').dirty && validateForm.get('password').errors">Vui lòng nhập mật khẩu!</nz-form-explain>
+                </nz-form-control>
+            </nz-form-item>
+            <nz-form-item>
+                <nz-form-control>
+                    <label nz-checkbox formControlName="remember">
+                        <span>Ghi nhớ đăng nhập</span>
+                    </label>
+                    <a class="login-form-forgot" class="login-form-forgot">Quên mật khẩu</a>
+                    <button nz-button class="login-form-button" [nzType]="'primary'">Đăng nhập</button>
+                    Hoặc
+                    <a routerLink="/sign-up">đăng kí ngay!</a>
+                </nz-form-control>
+            </nz-form-item>
+        </form>
+    </div>
+</div>

@@ -1,0 +1,67 @@
+<div class="question" *ngFor="let question of QUESTIONS">
+    <h4 class="title">Câu {{ question.id }}</h4>
+    <div>
+        <div class="image-question" *ngIf="question.type === 'image'">
+            <img [src]="question.url"/>
+            <div class="options">
+                <nz-radio-group class="radio-group">
+                    <div nz-row *ngFor="let group of question.options" class="group">
+                        <label class="option" *ngFor="let option of group" nz-radio [ngStyle]="style" [nzValue]="option.name">
+                            <button nz-button nzType="default" (click)="playAudio(option.url)"><i class="anticon anticon-play-circle-o"></i></button>
+                        </label>
+                    </div>
+                </nz-radio-group>
+            </div>
+        </div>
+        <div class="audio-question" *ngIf="question.type === 'audio'">
+            <div>
+                <button nz-button nzType="default" (click)="playAudio(question.url)"><i class="anticon anticon-play-circle-o"></i></button>
+            </div>
+            <div class="options">
+                <nz-radio-group class="radio-group">
+                    <div nz-row *ngFor="let group of question.options" class="group">
+                        <label class="option" *ngFor="let option of group" nz-radio [ngStyle]="style" [nzValue]="option.name">
+                            <img [src]="option.url"/>
+                        </label>
+                    </div>
+                </nz-radio-group>
+            </div>
+        </div>
+        <div class="video-question" *ngIf="question.type === 'video'">
+            <video width="320" height="240" controls class="head-video" #video>
+                <source [src]="question.url" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+            <nz-divider></nz-divider>
+            <p class="info-text" *ngIf="!showV">Để hiện thi đáp án hãy xem video</p>
+            <div class="options" *ngIf="showV">
+                <nz-radio-group class="radio-group">
+                    <div nz-row *ngFor="let group of question.options" class="group">
+                        <label class="option" *ngFor="let option of group" nz-radio [ngStyle]="style" [nzValue]="option.name">
+                            <video controls>
+                                <source [src]="option.url" type="video/mp4">
+                                Your browser does not support the video tag.
+                            </video>
+                        </label>
+                    </div>
+                </nz-radio-group>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="test-footer">
+    <div class="footer-content">
+        <div>
+            Bài thi số 1
+        </div>
+        <div>
+            <i class="anticon anticon-clock-circle-o"></i>
+            {{ getRemainTime() }}
+            <button nz-button nzType="primary" nzGhost (click)="showModal()">Nộp bài</button>
+            <nz-modal nzCancelText="Hủy" nzOkText="Nạp tiền" [(nzVisible)]="isVisible" nzTitle="Nộp bài" (nzOnCancel)="handleCancel()" (nzOnOk)="handleOk()">
+                <p class="info-text">Để xem kết quả bạn cần phải nạp tiền. Phí dịch vụ là 10.000.000đ</p>
+            </nz-modal>
+        </div>
+    </div>
+
+</div>

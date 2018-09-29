@@ -1,0 +1,19 @@
+<div nz-row class="app-header">
+    <div nz-col [nzSpan]="5">
+        <a routerLink="/test-list">
+            <img src="/assets/images/logo.png"  class="logo"/>
+            <span class="company-name">KIDS CAMP</span>
+        </a>
+    </div>
+    <div nz-col [nzSpan]="19" class="header-right">
+        <ng-container *ngIf="!isLoggedIn">
+            <a routerLink="/login" nz-button nzType="default" class="login-btn">Đăng nhập</a>
+            <a routerLink="/sign-up" nz-button nzType="primary">Đăng kí</a>
+        </ng-container>
+        <div *ngIf="isLoggedIn">
+            <nz-avatar nzIcon="anticon anticon-user" style="background-color:#87d068;"></nz-avatar>
+            <span class="username">Big kid</span>
+            <button nz-button nzType="default" (click)="logOut()">Đăng xuất</button>
+        </div>
+    </div>
+</div>
