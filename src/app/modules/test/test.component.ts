@@ -1,11 +1,14 @@
 import { AfterViewInit, Component, ElementRef, OnDestroy, ViewChild } from '@angular/core';
 import * as moment from 'moment';
+import { fadeInAnimation } from '../../shared/animation/fade-in.animation';
+import set = Reflect.set;
 
 const QUESTIONS = [
     {
         id: 1,
         type: 'image',
         url: '/assets/images/table.jpg',
+        step: 1,
         options: [
             [
                 {
@@ -36,6 +39,7 @@ const QUESTIONS = [
         type: 'audio',
         url: '/assets/sounds/xe.mp3',
         answer: 'chair',
+        step: 1,
         options: [
             [
                 {
@@ -65,6 +69,7 @@ const QUESTIONS = [
         type: 'video',
         url: '/assets/videos/lala.mp4',
         answer: 'lala',
+        step: 1,
         options: [
             [
                 {
@@ -93,7 +98,8 @@ const QUESTIONS = [
 @Component({
     selector: 'app-test',
     templateUrl: 'test.component.html',
-    styleUrls: ['test.component.scss']
+    styleUrls: ['test.component.scss'],
+    animations: [fadeInAnimation]
 })
 
 export class TestComponent implements OnDestroy, AfterViewInit {
@@ -116,11 +122,19 @@ export class TestComponent implements OnDestroy, AfterViewInit {
     }
 
     ngAfterViewInit() {
+    }
+
+    addVideoEvent() {
         this.video.nativeElement.onplay = this.showVideo;
     }
 
-    playAudio(src: string) {
+    playAudio(src: string, cb = null) {
         const audio = new Audio(src);
+        audio.addEventListener('ended', () => {
+            if (cb) {
+                cb();
+            }
+        });
         audio.play();
     }
 
@@ -138,7 +152,7 @@ export class TestComponent implements OnDestroy, AfterViewInit {
         console.log('play')
         setTimeout(() => {
             this.showV = true;
-        }, 2500);
+        }, 2000);
     }
 
     ngOnDestroy() {
@@ -161,5 +175,43 @@ export class TestComponent implements OnDestroy, AfterViewInit {
     handleCancel(): void {
         console.log('Button cancel clicked!');
         this.isVisible = false;
+    }
+
+    changeStep(id: number, step: number) {
+        this.QUESTIONS = QUESTIONS.map((question) => {
+            if (question.id === id) {
+                question.step = step;
+            }
+
+            return question;
+        });
+    }
+
+    setStep(id: number, type: string, step: number) {
+        this.changeStep(id, step);
+
+        if (step === 2 && type === 'video') {
+            setTimeout(() => {
+                this.addVideoEvent();
+            })
+        }
+
+        if (type === 'image') {
+            setTimeout(() => {
+                this.playAudio('/assets/sounds/la.mp3', () => {
+                    setTimeout(() => {
+                        this.changeStep(id, 3);
+                    }, 1000);
+                })
+            }, 1000);
+        } else if (type === 'audio') {
+            setTimeout(() => {
+                this.playAudio('/assets/sounds/xe.mp3', () => {
+                    setTimeout(() => {
+                        this.changeStep(id, 3);
+                    }, 1000);
+                })
+            }, 1000)
+        }
     }
 }

@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { fadeInAnimation } from '../../shared/animation/fade-in.animation';
 
 
 const TEST_LIST = [
@@ -63,7 +64,8 @@ const TEST_LIST = [
 @Component({
     selector: 'test-list',
     templateUrl: 'test-list.component.html',
-    styleUrls: ['test-list.component.scss']
+    styleUrls: ['test-list.component.scss'],
+    animations: [fadeInAnimation]
 })
 
 export class TestListComponent {
